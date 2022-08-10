@@ -22,6 +22,7 @@ init();
 // Functions =================================================================
 
 // parsisiusti users masyva is 'http://localhost:8001/users'
+
 async function getUsersFromApi(url) {
   const resp = await fetch(url);
   const users = await resp.json();
@@ -40,8 +41,16 @@ function makeOneLi(user) {
   liEl.textContent = `${user.name} is ${user.age} years old. Originally from ${user.town}.`;
   const deleteButtonEl = document.createElement('button');
   deleteButtonEl.textContent = 'Delete';
+  deleteButtonEl.addEventListener('click', () => deleteUser(user.id));
   const editButtonEl = document.createElement('button');
   editButtonEl.textContent = 'Edit';
   liEl.append(editButtonEl, deleteButtonEl);
   return liEl;
 }
+
+function deleteUser(id) {
+  console.log('deleteUser function called', id);
+  // nusiusti delete fetch uzklausa ir paziureti rezultata
+}
+
+function editUser() {}

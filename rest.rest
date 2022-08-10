@@ -1,0 +1,28 @@
+# gaunam visus users
+GET http://localhost:8001/users 
+
+###
+
+# sukuriam nauja user
+POST http://localhost:8001/users
+Content-Type: application/json
+
+{
+  "name": "Serbentautas",
+  "age": 18,
+  "town": "Neveronys"
+}
+
+###
+
+DELETE http://localhost:8001/users/5
+
+###
+
+#  edit vienai reiksmei
+PATCH http://localhost:8001/users/5
+Content-Type: application/json
+
+{
+  "name": "Serbentautas Bordiuras"
+}
