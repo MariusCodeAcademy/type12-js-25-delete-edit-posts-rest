@@ -26,3 +26,15 @@ Content-Type: application/json
 {
   "name": "Serbentautas Bordiuras"
 }
+
+###
+
+#  edit visoms reiksmems
+PUT http://localhost:8001/users/6
+Content-Type: application/json
+
+{
+  "name": "Serbentautas Bordiuras",
+  "town": "Serbija",
+  "age": 35
+}
