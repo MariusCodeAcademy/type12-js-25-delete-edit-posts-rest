@@ -2,6 +2,10 @@
 GET http://localhost:8001/users 
 
 ###
+# gaunam visus users
+GET http://localhost:8001/users?archived=false
+
+###
 
 # sukuriam nauja user
 POST http://localhost:8001/users
