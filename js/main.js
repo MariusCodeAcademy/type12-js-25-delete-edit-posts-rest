@@ -14,12 +14,16 @@ const usersUrl = 'http://localhost:8001/users';
 const listEl = document.getElementById('usersList');
 
 async function init() {
-  const users = await getUsersFromApi(usersUrl);
-  generuokSarasoHtml(users);
+  getUsersAndGenerateList();
 }
 init();
 
 // Functions =================================================================
+
+async function getUsersAndGenerateList() {
+  const users = await getUsersFromApi(usersUrl);
+  generuokSarasoHtml(users);
+}
 
 // parsisiusti users masyva is 'http://localhost:8001/users'
 
@@ -48,9 +52,17 @@ function makeOneLi(user) {
   return liEl;
 }
 
-function deleteUser(id) {
+async function deleteUser(id) {
   console.log('deleteUser function called', id);
   // nusiusti delete fetch uzklausa ir paziureti rezultata
+  const resp = await fetch(`${usersUrl}/${id}`, {
+    method: 'DELETE',
+  });
+  console.log('resp ===', resp);
+  if (resp.ok) {
+    console.log('istrinta sekmingai');
+    getUsersAndGenerateList();
+  }
 }
 
 function editUser() {}
