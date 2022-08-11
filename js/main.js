@@ -43,7 +43,7 @@ editFormEl.addEventListener('submit', async (e) => {
 // Functions =================================================================
 
 async function getUsersAndGenerateList() {
-  const users = await getUsersFromApi(usersUrl);
+  const users = await getUsersFromApi(usersUrl + '?archived=false');
   generuokSarasoHtml(users);
 }
 
@@ -67,7 +67,7 @@ function makeOneLi(user) {
   liEl.textContent = `${user.name} is ${user.age} years old. Originally from ${user.town}.`;
   const deleteButtonEl = document.createElement('button');
   deleteButtonEl.textContent = 'Delete';
-  deleteButtonEl.addEventListener('click', () => deleteUser(user.id));
+  deleteButtonEl.addEventListener('click', () => deleteUserPatch(user.id));
   const editButtonEl = document.createElement('button');
   editButtonEl.textContent = 'Edit';
   editButtonEl.addEventListener('click', () => editUser(user));
@@ -80,6 +80,23 @@ async function deleteUser(id) {
   // nusiusti delete fetch uzklausa ir paziureti rezultata
   const resp = await fetch(`${usersUrl}/${id}`, {
     method: 'DELETE',
+  });
+  console.log('resp ===', resp);
+  if (resp.ok) {
+    console.log('istrinta sekmingai');
+    getUsersAndGenerateList();
+  }
+}
+
+async function deleteUserPatch(id) {
+  console.log('deleteUser function called', id);
+  // nusiusti delete fetch uzklausa ir paziureti rezultata
+  const resp = await fetch(`${usersUrl}/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      archived: true,
+    }),
   });
   console.log('resp ===', resp);
   if (resp.ok) {
